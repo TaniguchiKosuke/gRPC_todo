@@ -43,3 +43,19 @@ func (th *TodoHandler) Create(ctx context.Context, req *proto.TodoCreateRequest)
 		Id: createdTodo.ID,
 	}, nil
 }
+
+func (th *TodoHandler) Get(ctx context.Context, req *proto.TodoGetRequest) (*proto.TodoGetResponse, error) {
+	todo, err := th.todoRepository.GetTodoByID(req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	resTodo := &proto.TodoGetResponse_Todo{
+		Id:    todo.ID,
+		Title: todo.Title,
+		Body:  todo.Body,
+	}
+	return &proto.TodoGetResponse{
+		Item: resTodo,
+	}, nil
+}

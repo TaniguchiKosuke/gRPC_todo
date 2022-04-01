@@ -7,7 +7,7 @@ import (
 
 type TodoRepository interface {
 	Create(*entity.Todo) (*entity.Todo, error)
-	GetTodoList() (*entity.Todo, error)
+	GetTodoByID(string) (*entity.Todo, error)
 }
 
 type todoRepository struct {
@@ -26,6 +26,11 @@ func (tr *todoRepository) Create(todo *entity.Todo) (*entity.Todo, error) {
 	return todo, nil
 }
 
-func (tr *todoRepository) GetTodoList() (*entity.Todo, error) {
-	return nil, nil
+func (tr *todoRepository) GetTodoByID(ID string) (*entity.Todo, error) {
+	var todo *entity.Todo
+	if err := tr.Conn.Where("id = ?", ID).Find(&todo).Error; err != nil {
+		return nil, err
+	}
+
+	return todo, nil
 }
