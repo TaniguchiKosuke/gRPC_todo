@@ -15,10 +15,13 @@ type DBHandler struct {
 func NewDBHandler() *DBHandler {
 	conn, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
 	if err != nil {
-		log.Println(err)
+		log.Println(err.Error())
 		return nil
 	}
-	conn.AutoMigrate(&entity.Todo{})
+	if err := conn.AutoMigrate(&entity.Todo{}); err != nil {
+		log.Println(err.Error())
+		return nil
+	}
 
 	sqlHandler := new(DBHandler)
 	sqlHandler.Conn = conn

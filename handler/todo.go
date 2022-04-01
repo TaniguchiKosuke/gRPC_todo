@@ -5,11 +5,15 @@ import (
 	"gRPC_todo/entity"
 	"gRPC_todo/infra"
 	"gRPC_todo/proto"
+	"log"
 
 	"github.com/google/uuid"
 )
 
 type TodoHandler struct {
+	proto.UnimplementedTodoCommandServer
+	proto.UnimplementedTodoQueryServer
+
 	todoRepository infra.TodoRepository
 }
 
@@ -33,6 +37,7 @@ func (th *TodoHandler) CreateTodo(ctx context.Context, req *proto.TodoCreateRequ
 	if err != nil {
 		return nil, err
 	}
+	log.Println("create todo called !!!!!")
 
 	return &proto.TodoCreateResponse{
 		Id: createdTodo.ID,
