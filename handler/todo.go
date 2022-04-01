@@ -21,7 +21,7 @@ func NewTodoHandler(todoRepository infra.TodoRepository) *TodoHandler {
 	return &TodoHandler{todoRepository: todoRepository}
 }
 
-func (th *TodoHandler) CreateTodo(ctx context.Context, req *proto.TodoCreateRequest) (*proto.TodoCreateResponse, error) {
+func (th *TodoHandler) Create(ctx context.Context, req *proto.TodoCreateRequest) (*proto.TodoCreateResponse, error) {
 	todoUUID, err := uuid.NewRandom()
 	if err != nil {
 		return nil, err
