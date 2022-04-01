@@ -1,12 +1,12 @@
 syntax = "proto3";
-package service;
+package todo;
 option go_package = "./pb";
 
 service TodoQuery {
-	rpc Get (TodoGetRuest) returns (TodoGetResponse);
+	rpc Get (TodoGetRequest) returns (TodoGetResponse);
 }
 
-message TodoGetRuest {
+message TodoGetRequest {
 	string id = 1;
 };
 message TodoGetResponse {
@@ -20,10 +20,10 @@ message TodoGetResponse {
 };
 
 service TodoCommand {
-	rpc Create (TodoCreateRuest) returns (TodoCreateResponse);
+	rpc Create (TodoCreateRequest) returns (TodoCreateResponse);
 }
 
-message TodoCreateRuest {
+message TodoCreateRequest {
 	string title = 1;
 	string body = 2;
 };

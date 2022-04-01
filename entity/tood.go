@@ -1,8 +1,7 @@
 package entity
 
 type Todo struct {
-	ID string
+	ID    string
 	Title string
-	Content string
-	Deadline string
+	Body  string
 }

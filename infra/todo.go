@@ -14,10 +14,18 @@ type todoRepository struct {
 	config.DBHandler
 }
 
+func NewTodoRepository(dbHandler config.DBHandler) TodoRepository {
+	return &todoRepository{DBHandler: dbHandler}
+}
+
 func (tr *todoRepository) Create(todo *entity.Todo) (*entity.Todo, error) {
 	if err := tr.Conn.Create(&todo).Error; err != nil {
 		return nil, err
 	}
 
 	return todo, nil
+}
+
+func (tr *todoRepository) GetTodoList() (*entity.Todo, error) {
+	return nil, nil
 }
